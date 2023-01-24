@@ -10,7 +10,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  bkservicearm: 'DevTestServiceConnection'
+  bkservicearm: 'myServicePrincipal'
   bkstrgrg: 'andysExampleRG'
   bkstrg: 'andysExampleSTRG'
   bkcontainer: 'tfstate'
