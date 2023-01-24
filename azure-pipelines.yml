@@ -10,7 +10,6 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  bkservicearm: 'myServicePrincipal'
   bkstrgrg: 'andysExampleRG'
   bkstrg: 'andysExampleSTRG'
   bkcontainer: 'tfstate'
@@ -31,6 +30,7 @@ stages:
           inputs:
             provider: 'azurerm'
             command: 'init'
+            backendServiceArm: 'ServiceConnectionName'
             backendAzureRmResourceGroupName: '$(bkstrgrg)'
             backendAzureRmStorageAccountName: '$(bkstrg)'
             backendAzureRmContainerName: '$(bkcontainer)'
@@ -55,6 +55,7 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'init'
+              backendServiceArm: 'ServiceConnectionName'
               backendAzureRmResourceGroupName: '$(bkstrgrg)'
               backendAzureRmStorageAccountName: '$(bkstrg)'
               backendAzureRmContainerName: '$(bkcontainer)'
@@ -64,8 +65,10 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'plan'
+              environmentServiceNameAzureRM: 'ServiceConnectionName'
           - task: TerraformTaskV3@3
             displayName: apply
             inputs:
               provider: 'azurerm'
               command: 'apply'
+              environmentServiceNameAzureRM: 'ServiceConnectionName'
