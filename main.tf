@@ -38,21 +38,3 @@ resource "azurerm_role_assignment" "enablePulling" {
   scope                            = azurerm_container_registry.myacr.id
   skip_service_principal_aad_check = true
 }
-
-resource "azurerm_role_definition" "role_assignment_contributor" {
-    name  = "Role Assignment Owner"
-    scope = azurerm_management_group.root.id
-    description = "A role designed for writing and deleting role assignments"
-
-    permissions {
-        actions = [
-            "Microsoft.Authorization/roleAssignments/write",
-            "Microsoft.Authorization/roleAssignments/delete",
-        ]
-        not_actions = []
-    }
-
-    assignable_scopes = [
-        azurerm_management_group.root.id
-    ]
-}
