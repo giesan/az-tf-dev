@@ -31,7 +31,7 @@ stages:
           inputs:
             provider: 'azurerm'
             command: 'init'
-            backendServiceArm: 'myServicePrincipal'
+            backendServiceArm: 'ServiceConnectionName'
             backendAzureRmResourceGroupName: '$(bkstrgrg)'
             backendAzureRmStorageAccountName: '$(bkstrg)'
             backendAzureRmContainerName: '$(bkcontainer)'
@@ -56,7 +56,7 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'init'
-              backendServiceArm: 'myServicePrincipal'
+              backendServiceArm: 'ServiceConnectionName'
               backendAzureRmResourceGroupName: '$(bkstrgrg)'
               backendAzureRmStorageAccountName: '$(bkstrg)'
               backendAzureRmContainerName: '$(bkcontainer)'
@@ -66,10 +66,10 @@ stages:
             inputs:
               provider: 'azurerm'
               command: 'plan'
-              environmentServiceNameAzureRM: 'myServicePrincipal'
+              environmentServiceNameAzureRM: 'ServiceConnectionName'
           - task: TerraformTaskV3@3
             displayName: apply
             inputs:
               provider: 'azurerm'
               command: 'apply'
-              environmentServiceNameAzureRM: 'myServicePrincipal'
+              environmentServiceNameAzureRM: 'ServiceConnectionName'
