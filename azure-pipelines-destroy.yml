@@ -17,35 +17,9 @@ variables:
   bkstrgkey: 'devpipeline.terraform.tfstate'
 
 stages:
-  - stage: tfvalidate
+  - stage: tfdestroy
     jobs:
-      - job: validate
-        continueOnError: false
-        steps:
-        - task: TerraformInstaller@0
-          displayName: tfinstall
-          inputs:
-            terraformVersion: 'latest'
-        - task: TerraformTaskV3@3
-          displayName: init
-          inputs:
-            provider: 'azurerm'
-            command: 'init'
-            backendServiceArm: 'ServiceConnForServicePrincipalOwner'
-            backendAzureRmResourceGroupName: '$(bkstrgrg)'
-            backendAzureRmStorageAccountName: '$(bkstrg)'
-            backendAzureRmContainerName: '$(bkcontainer)'
-            backendAzureRmKey: '$(bkstrgkey)'
-        - task: TerraformTaskV3@3
-          displayName: validate
-          inputs:
-            provider: 'azurerm'
-            command: 'validate'
-  - stage: tfdeploy
-    condition: succeeded('tfvalidate')
-    dependsOn: tfvalidate
-    jobs:
-      - job: apply
+      - job: destroy
         steps:
           - task: TerraformInstaller@0
             displayName: tfinstall
@@ -68,8 +42,8 @@ stages:
               command: 'plan'
               environmentServiceNameAzureRM: 'ServiceConnForServicePrincipalOwner'
           - task: TerraformTaskV3@3
-            displayName: apply
+            displayName: destroy
             inputs:
               provider: 'azurerm'
-              command: 'apply'
+              command: 'destroy'
               environmentServiceNameAzureRM: 'ServiceConnForServicePrincipalOwner'
