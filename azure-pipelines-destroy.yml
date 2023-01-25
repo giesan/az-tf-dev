@@ -11,10 +11,10 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  bkstrgrg: 'andysExampleRG'
-  bkstrg: 'andysExampleSTRG'
+  bkstrgrg: 'tfstateRG'
+  bkstrg: 'tfstatestgscc71213'
   bkcontainer: 'tfstate'
-  bkstrgkey: 'devpipeline.terraform.tfstate'
+  bkstrgkey: 'terraform.tfstate'
 
 stages:
   - stage: tfdestroy

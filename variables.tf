@@ -1,8 +1,11 @@
 variable "resource_group_location" {
-  default     = "westeurope"
+  type        = string
+  default     = "West Europe"
   description = "Location of the resource group."
 }
 
 variable "resource_group_name" {
-  default = "andysExampleRG"
+  type        = string
+  description = "The name of the resource group"
+  default     = "andysExampleRG"
 }
