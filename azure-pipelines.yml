@@ -19,7 +19,7 @@ variables:
 stages:
   - stage: tfvalidate
     jobs:
-      - deployment: validate
+      - job: validate
         continueOnError: false
         steps:
         - task: TerraformInstaller@0
@@ -45,7 +45,7 @@ stages:
     condition: succeeded('tfvalidate')
     dependsOn: tfvalidate
     jobs:
-      - deployment: apply
+      - job: apply
         steps:
           - task: TerraformInstaller@0
             displayName: tfinstall
