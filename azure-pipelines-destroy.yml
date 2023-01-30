@@ -7,7 +7,7 @@ trigger:
 - none
 
 pool:
-  name: azure
+  # name: azure
   vmImage: ubuntu-latest
 
 variables:
