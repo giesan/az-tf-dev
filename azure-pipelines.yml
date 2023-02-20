@@ -16,6 +16,9 @@ variables:
   bkcontainer: 'tfstate'
   bkstrgkey: 'terraform.tfstate'
 
+steps:
+  - bash: |
+      terraform --version
 # steps:
 #   - bash: |
 #       terraform init \
@@ -28,40 +31,40 @@ variables:
 #       TF_STATE_BLOB_CONTAINER_NAME: $(bkcontainer)
 #       TF_STATE_BLOB_FILE:           $(bkstrgkey)
 
-stages:
-  - stage: terraform_tasks
-    jobs:
-      - job: validate
-        continueOnError: false
-        steps:
-        - task: TerraformInstaller@0
-          displayName: tfinstall
-          inputs:
-            terraformVersion: 'latest'
-        - task: TerraformTaskV3@3
-          displayName: init
-          inputs:
-            provider: 'azurerm'
-            command: 'init'
-            backendServiceArm: 'ServiceConnForServicePrincipalOwner'
-            backendAzureRmResourceGroupName: '$(bkstrgrg)'
-            backendAzureRmStorageAccountName: '$(bkstrg)'
-            backendAzureRmContainerName: '$(bkcontainer)'
-            backendAzureRmKey: '$(bkstrgkey)'
-        - task: TerraformTaskV3@3
-          displayName: validate
-          inputs:
-            provider: 'azurerm'
-            command: 'validate'
-        - task: TerraformTaskV3@3
-          displayName: plan
-          inputs:
-            provider: 'azurerm'
-            command: 'plan'
-            environmentServiceNameAzureRM: 'ServiceConnForServicePrincipalOwner'
-        - task: TerraformTaskV3@3
-          displayName: apply
-          inputs:
-            provider: 'azurerm'
-            command: 'apply'
-            environmentServiceNameAzureRM: 'ServiceConnForServicePrincipalOwner'
+# stages:
+#   - stage: terraform_tasks
+#     jobs:
+#       - job: validate
+#         continueOnError: false
+#         steps:
+#         - task: TerraformInstaller@0
+#           displayName: tfinstall
+#           inputs:
+#             terraformVersion: 'latest'
+#         - task: TerraformTaskV3@3
+#           displayName: init
+#           inputs:
+#             provider: 'azurerm'
+#             command: 'init'
+#             backendServiceArm: 'ServiceConnForServicePrincipalOwner'
+#             backendAzureRmResourceGroupName: '$(bkstrgrg)'
+#             backendAzureRmStorageAccountName: '$(bkstrg)'
+#             backendAzureRmContainerName: '$(bkcontainer)'
+#             backendAzureRmKey: '$(bkstrgkey)'
+#         - task: TerraformTaskV3@3
+#           displayName: validate
+#           inputs:
+#             provider: 'azurerm'
+#             command: 'validate'
+#         - task: TerraformTaskV3@3
+#           displayName: plan
+#           inputs:
+#             provider: 'azurerm'
+#             command: 'plan'
+#             environmentServiceNameAzureRM: 'ServiceConnForServicePrincipalOwner'
+#         - task: TerraformTaskV3@3
+#           displayName: apply
+#           inputs:
+#             provider: 'azurerm'
+#             command: 'apply'
+#             environmentServiceNameAzureRM: 'ServiceConnForServicePrincipalOwner'
