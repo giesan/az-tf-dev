@@ -19,17 +19,17 @@ variables:
 steps:
   - bash: |
       terraform --version
-# steps:
-#   - bash: |
-#       terraform init \
-#         -backend-config="storage_account_name=$TF_STATE_BLOB_ACCOUNT_NAME" \
-#         -backend-config="container_name=$TF_STATE_BLOB_CONTAINER_NAME" \
-#         -backend-config="key=$TF_STATE_BLOB_FILE"
-#     displayName: Terraform Init
-#     env:
-#       TF_STATE_BLOB_ACCOUNT_NAME:   $(bkstrg)
-#       TF_STATE_BLOB_CONTAINER_NAME: $(bkcontainer)
-#       TF_STATE_BLOB_FILE:           $(bkstrgkey)
+    displayName: Terraform Version
+  - bash: |
+      terraform init \
+        -backend-config="storage_account_name=$TF_STATE_BLOB_ACCOUNT_NAME" \
+        -backend-config="container_name=$TF_STATE_BLOB_CONTAINER_NAME" \
+        -backend-config="key=$TF_STATE_BLOB_FILE"
+    displayName: Terraform Init
+    env:
+      TF_STATE_BLOB_ACCOUNT_NAME:   $(bkstrg)
+      TF_STATE_BLOB_CONTAINER_NAME: $(bkcontainer)
+      TF_STATE_BLOB_FILE:           $(bkstrgkey)
 
 # stages:
 #   - stage: terraform_tasks
