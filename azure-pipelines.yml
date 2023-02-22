@@ -18,9 +18,8 @@ variables:
 
 steps:
   - bash: |
-      terraform --version
       echo $(mySecret)
-    displayName: Terraform Version
+    displayName: Show Secret
   # - bash: |
   #     terraform init \
   #       -backend-config="storage_account_name=$TF_STATE_BLOB_ACCOUNT_NAME" \
